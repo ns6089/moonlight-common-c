@@ -1064,11 +1064,17 @@ int performRtspHandshake(PSERVER_INFORMATION serverInfo) {
             if ((serverInfo->serverCodecModeSupport & SCM_AV1_HIGH10_444) && (StreamConfig.supportedVideoFormats & VIDEO_FORMAT_AV1_HIGH10_444)) {
                 NegotiatedVideoFormat = VIDEO_FORMAT_AV1_HIGH10_444;
             }
+            else if ((serverInfo->serverCodecModeSupport & SCM_AV1_MAIN10_444IN420) && (StreamConfig.supportedVideoFormats & VIDEO_FORMAT_AV1_MAIN10_444IN420)) {
+                NegotiatedVideoFormat = VIDEO_FORMAT_AV1_MAIN10_444IN420;
+            }
             else if ((serverInfo->serverCodecModeSupport & SCM_AV1_MAIN10) && (StreamConfig.supportedVideoFormats & VIDEO_FORMAT_AV1_MAIN10)) {
                 NegotiatedVideoFormat = VIDEO_FORMAT_AV1_MAIN10;
             }
             else if ((serverInfo->serverCodecModeSupport & SCM_AV1_HIGH8_444) && (StreamConfig.supportedVideoFormats & VIDEO_FORMAT_AV1_HIGH8_444)) {
                 NegotiatedVideoFormat = VIDEO_FORMAT_AV1_HIGH8_444;
+            }
+            else if ((serverInfo->serverCodecModeSupport & SCM_AV1_MAIN8_444IN420) && (StreamConfig.supportedVideoFormats & VIDEO_FORMAT_AV1_MAIN8_444IN420)) {
+                NegotiatedVideoFormat = VIDEO_FORMAT_AV1_MAIN8_444IN420;
             }
             else {
                 NegotiatedVideoFormat = VIDEO_FORMAT_AV1_MAIN8;
@@ -1084,11 +1090,17 @@ int performRtspHandshake(PSERVER_INFORMATION serverInfo) {
             if ((serverInfo->serverCodecModeSupport & SCM_HEVC_REXT10_444) && (StreamConfig.supportedVideoFormats & VIDEO_FORMAT_H265_REXT10_444)) {
                 NegotiatedVideoFormat = VIDEO_FORMAT_H265_REXT10_444;
             }
+            else if ((serverInfo->serverCodecModeSupport & SCM_HEVC_MAIN10_444IN420) && (StreamConfig.supportedVideoFormats & VIDEO_FORMAT_H265_MAIN10_444IN420)) {
+                NegotiatedVideoFormat = VIDEO_FORMAT_H265_MAIN10_444IN420;
+            }
             else if ((serverInfo->serverCodecModeSupport & SCM_HEVC_MAIN10) && (StreamConfig.supportedVideoFormats & VIDEO_FORMAT_H265_MAIN10)) {
                 NegotiatedVideoFormat = VIDEO_FORMAT_H265_MAIN10;
             }
             else if ((serverInfo->serverCodecModeSupport & SCM_HEVC_REXT8_444) && (StreamConfig.supportedVideoFormats & VIDEO_FORMAT_H265_REXT8_444)) {
                 NegotiatedVideoFormat = VIDEO_FORMAT_H265_REXT8_444;
+            }
+            else if ((serverInfo->serverCodecModeSupport & SCM_HEVC_MAIN8_444IN420) && (StreamConfig.supportedVideoFormats & VIDEO_FORMAT_H265_MAIN8_444IN420)) {
+                NegotiatedVideoFormat = VIDEO_FORMAT_H265_MAIN8_444IN420;
             }
             else {
                 NegotiatedVideoFormat = VIDEO_FORMAT_H265;
@@ -1097,6 +1109,9 @@ int performRtspHandshake(PSERVER_INFORMATION serverInfo) {
         else {
             if ((serverInfo->serverCodecModeSupport & SCM_H264_HIGH8_444) && (StreamConfig.supportedVideoFormats & VIDEO_FORMAT_H264_HIGH8_444)) {
                 NegotiatedVideoFormat = VIDEO_FORMAT_H264_HIGH8_444;
+            }
+            else if ((serverInfo->serverCodecModeSupport & SCM_H264_HIGH8_444IN420) && (StreamConfig.supportedVideoFormats & VIDEO_FORMAT_H264_HIGH8_444IN420)) {
+                NegotiatedVideoFormat = VIDEO_FORMAT_H264_HIGH8_444IN420;
             }
             else {
                 NegotiatedVideoFormat = VIDEO_FORMAT_H264;
