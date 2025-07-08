@@ -49,6 +49,12 @@ typedef struct _STREAM_CONFIGURATION {
     // FPS of the desired video stream
     int fps;
 
+    // Fractional frame rate of the video stream in the form of numerator
+    // and denominator. Supported by recent versions of sunshine. You still
+    // need to specify the non-fractional frame rate for compatibility.
+    int fpsNum;
+    int fpsDen;
+
     // Bitrate of the desired video stream (audio adds another ~1 Mbps). This
     // includes error correction data, so the actual encoder bitrate will be
     // about 20% lower when using the standard 20% FEC configuration.
@@ -74,11 +80,10 @@ typedef struct _STREAM_CONFIGURATION {
     // See VIDEO_FORMAT constants below.
     int supportedVideoFormats;
 
-    // If specified, the client's display refresh rate in the form of numerator
-    // and denominator. This is used by recent versions of sunshine for
-    // enhanced frame pacing.
-    int clientRefreshRateNum;
-    int clientRefreshRateDen;
+    // If specified, the client's display refresh rate x 100. For example,
+    // 59.94 Hz would be specified as 5994. This is used by recent versions
+    // of GFE for enhanced frame pacing. Ignored by sunshine.
+    int clientRefreshRateX100;
 
     // If specified, sets the encoder colorspace to the provided COLORSPACE_*
     // option (listed above). If not set, the encoder will default to Rec 601.

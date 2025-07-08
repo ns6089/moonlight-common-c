@@ -311,12 +311,12 @@ static PSDP_OPTION getAttributesList(char*urlSafeAddr) {
         }
 
         // Specify fractional frame rate if requested
-        if (StreamConfig.clientRefreshRateNum > 0 && StreamConfig.clientRefreshRateDen > 0) {
-            snprintf(payloadStr, sizeof(payloadStr), "%d", StreamConfig.clientRefreshRateNum);
-            err |= addAttributeString(&optionHead, "x-ml-video.targetFramerateNum", payloadStr);
+        if (StreamConfig.fpsNum > 0 && StreamConfig.fpsDen > 0) {
+            snprintf(payloadStr, sizeof(payloadStr), "%d", StreamConfig.fpsNum);
+            err |= addAttributeString(&optionHead, "x-ml-video.targetFrameRateNum", payloadStr);
 
-            snprintf(payloadStr, sizeof(payloadStr), "%d", StreamConfig.clientRefreshRateDen);
-            err |= addAttributeString(&optionHead, "x-ml-video.targetFramerateDen", payloadStr);
+            snprintf(payloadStr, sizeof(payloadStr), "%d", StreamConfig.fpsDen);
+            err |= addAttributeString(&optionHead, "x-ml-video.targetFrameRateDen", payloadStr);
         }
     }
 
@@ -482,13 +482,7 @@ static PSDP_OPTION getAttributesList(char*urlSafeAddr) {
                 err |= addAttributeString(&optionHead, "x-nv-video[0].maxNumReferenceFrames", "1");
             }
 
-            int clientRefreshRateX100 = 0;
-            if (StreamConfig.clientRefreshRateNum > 0 && StreamConfig.clientRefreshRateDen > 0) {
-                clientRefreshRateX100 = StreamConfig.clientRefreshRateNum * 100 /
-                                        StreamConfig.clientRefreshRateDen;
-            }
-
-            snprintf(payloadStr, sizeof(payloadStr), "%d", clientRefreshRateX100);
+            snprintf(payloadStr, sizeof(payloadStr), "%d", StreamConfig.clientRefreshRateX100);
             err |= addAttributeString(&optionHead, "x-nv-video[0].clientRefreshRateX100", payloadStr);
         }
 
