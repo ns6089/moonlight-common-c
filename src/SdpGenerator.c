@@ -309,6 +309,15 @@ static PSDP_OPTION getAttributesList(char*urlSafeAddr) {
         else {
             err |= addAttributeString(&optionHead, "x-ss-video[0].chromaSamplingType", "0");
         }
+
+        // Specify fractional frame rate if requested
+        if (StreamConfig.clientRefreshRateNum > 0 && StreamConfig.clientRefreshRateDen > 0) {
+            snprintf(payloadStr, sizeof(payloadStr), "%d", StreamConfig.clientRefreshRateNum);
+            err |= addAttributeString(&optionHead, "x-ml-video.targetFramerateNum", payloadStr);
+
+            snprintf(payloadStr, sizeof(payloadStr), "%d", StreamConfig.clientRefreshRateDen);
+            err |= addAttributeString(&optionHead, "x-ml-video.targetFramerateDen", payloadStr);
+        }
     }
 
     snprintf(payloadStr, sizeof(payloadStr), "%d", StreamConfig.width);
@@ -473,7 +482,13 @@ static PSDP_OPTION getAttributesList(char*urlSafeAddr) {
                 err |= addAttributeString(&optionHead, "x-nv-video[0].maxNumReferenceFrames", "1");
             }
 
-            snprintf(payloadStr, sizeof(payloadStr), "%d", StreamConfig.clientRefreshRateX100);
+            int clientRefreshRateX100 = 0;
+            if (StreamConfig.clientRefreshRateNum > 0 && StreamConfig.clientRefreshRateDen > 0) {
+                clientRefreshRateX100 = StreamConfig.clientRefreshRateNum * 100 /
+                                        StreamConfig.clientRefreshRateDen;
+            }
+
+            snprintf(payloadStr, sizeof(payloadStr), "%d", clientRefreshRateX100);
             err |= addAttributeString(&optionHead, "x-nv-video[0].clientRefreshRateX100", payloadStr);
         }
 

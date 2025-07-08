@@ -74,10 +74,11 @@ typedef struct _STREAM_CONFIGURATION {
     // See VIDEO_FORMAT constants below.
     int supportedVideoFormats;
 
-    // If specified, the client's display refresh rate x 100. For example,
-    // 59.94 Hz would be specified as 5994. This is used by recent versions
-    // of GFE for enhanced frame pacing.
-    int clientRefreshRateX100;
+    // If specified, the client's display refresh rate in the form of numerator
+    // and denominator. This is used by recent versions of sunshine for
+    // enhanced frame pacing.
+    int clientRefreshRateNum;
+    int clientRefreshRateDen;
 
     // If specified, sets the encoder colorspace to the provided COLORSPACE_*
     // option (listed above). If not set, the encoder will default to Rec 601.
